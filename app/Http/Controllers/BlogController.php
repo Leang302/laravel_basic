@@ -39,7 +39,14 @@ class BlogController extends Controller
             'body'=>['required'],
             'status'=>['required','boolean']
         ]);
-        dd($request->all());
+        $blog =  new Blog();
+        $blog->image = $request->image;
+        $blog->name = $request->title;
+        $blog->body = $request->body;
+        $blog->status = $request->status;
+        $blog->save();
+        session()->flash('success','Your Blog has been created successfully');
+        return redirect()->back();
     }
 
     /**
