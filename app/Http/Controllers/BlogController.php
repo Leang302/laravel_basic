@@ -33,7 +33,13 @@ class BlogController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'catagory'=>['required','integer'],
+            'title'=>['required','max:255','min:2'],
+            'body'=>['required'],
+            'status'=>['required','boolean']
+        ]);
+        dd($request->all());
     }
 
     /**
