@@ -6,20 +6,33 @@
                 <h3>Create Blog</h3>
             </div>
             <div class="card-body">
-                @if(session()->has('success'))
+                @if (session()->has('success'))
                     <div class="alert alert-scueess">
-                        {{session('success')}}
+                        {{ session('success') }}
                     </div>
                 @endif
                 <form action="{{ route('blog.store') }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="form-group">
-                        <label for="exampleInputEmail1" class="form-label">Catagory</label>
+                        <label for="exampleInputEmail1" class="form-label">Image</label>
                         <input type="file" name="image" class="form-control">
                         @error('image')
                             <code>{{ $message }}</code>
                         @enderror
                     </div>
+                    <div class="form-group">
+                        <label for="exampleInputEmail1" class="form-label">Catagory</label>
+                        <select name="catagory" id="">
+                            <option value="">Select</option>
+                            @foreach ($catagories as $catagory)
+                                <option value="{{ $catagory->id }}">{{ $catagory->name }}</option>
+                            @endforeach
+                        </select>
+                        @error('catagory')
+                            <code>{{ $message }}</code>
+                        @enderror
+                    </div>
+
                     <div class="mb-3">
                         <label for="" class="form-label">Title</label>
                         <input type="text" class="form-control" name="title">
