@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\BlogController;
+use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -18,28 +18,14 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/person/{id?}',function($dog){
-    return $dog;
-});
-Route::get('/animals',function(){
-    return 'dog and cat';
-})->name('animals');
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth', 'verified'])->name('dashboard');
 
-Route::group(['as'=>'animals.','prefix'=>'/animals'],function(){
-    Route::get('dog',function(){
-        return 'Woof';
-    })->name('dog');
-    Route::get('cat',function(){
-        return 'meow';
-    })->name('cat');
+Route::middleware('auth')->group(function () {
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-Route::get('home',function(){
-    return view('home');
-})->name('home');
-Route::get('contact',function(){
-    return view('contact');
-})->name('contact');
-
-
-Route::resource('blog', BlogController::class);
+require __DIR__.'/auth.php';
