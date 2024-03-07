@@ -10,6 +10,7 @@ use App\Http\Controllers\Auth\PasswordController;
 use App\Http\Controllers\Auth\PasswordResetLinkController;
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\Auth\VerifyEmailController;
+use App\Http\Middleware\Admin;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware('guest')->group(function () {
@@ -66,4 +67,8 @@ Route::group(['prefix'=>'admin','as'=>'admin.'],function(){
     Route::post('login',[AdminController::class,'login'])->name('login');
     Route::get('dashboard',[AdminController::class,'dashboard'])->name('daskboard')->middleware('admin');
     Route::post('logout',[AdminController::class,'logout'])->name('logout');
+    Route::get('edit',[AdminController::class,'editIndex'])->name('edit.index');
+    Route::post('edit',[AdminController::class,'edit'])->name('edit')->middleware('admin');
+    Route::get('register',[AdminController::class,'registerIndex'])->name('register.index');
+    Route::post('register',[AdminController::class,'register'])->name('register');
 });

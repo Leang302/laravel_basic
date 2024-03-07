@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Admin;
+use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -28,5 +30,28 @@ class AdminController extends Controller
 
         return redirect()->route('admin.login.index');
     }
+    public function editIndex(Request $request): View
+    {
+        return view('profile.edit', [
+            'user' => $request->user(),
+        ]);
+    }
+    public function registerIndex(){
+        return view('auth.admin.register');
+    }
+    public function register(Request $request){
+        $request->validate([
+            'name'=>'required',
+            'email'=>['required','unique:admins'],
+            'password'=>['required','min:8','confirmed']
+        ]);
+        $admin = new Admin();
+        $admin->name= $request->name;
+        $admin->email= $request->email;
+        $admin->password= bcrypt($request->password);
 
+        $admin->save();
+        Auth::guard('admins')->login($admin);
+        return redirect()->route('admin.daskboard');
+    }
 }
