@@ -1,7 +1,11 @@
 <x-guest-layout>
     <!-- Session Status -->
+
     <x-auth-session-status class="mb-4" :status="session('status')" />
     <h1>Admin Login</h1><br>
+    @if (session()->has('error'))
+        <p class="font-medium text-sm text-red-600">{{ session('error') }}</p>
+    @endif
     <form method="POST" action="{{ route('admin.login') }}">
         @csrf
 

@@ -62,7 +62,8 @@ Route::group(['prefix'=>'admin','as'=>'admin.'],function(){
     //prefix = admin/login
     //as = admin.login
 
-    Route::get('login',[AdminController::class,'index'])->name('index');
+    Route::get('login',[AdminController::class,'index'])->name('login.index');
     Route::post('login',[AdminController::class,'login'])->name('login');
-    Route::get('dashboard',[AdminController::class,'dashboard'])->name('daskboard');
+    Route::get('dashboard',[AdminController::class,'dashboard'])->name('daskboard')->middleware('admin');
+    Route::post('logout',[AdminController::class,'logout'])->name('logout');
 });
