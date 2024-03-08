@@ -43,7 +43,7 @@
 
                     <x-slot name="content">
                         @if (Auth::guard('admin')->check())
-                            <x-dropdown-link :href="route('admin.register.index')">
+                            <x-dropdown-link :href="route('admin.edit.index')">
                                 {{ __('Profile') }}
                             </x-dropdown-link>
                         @else

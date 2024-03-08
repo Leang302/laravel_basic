@@ -30,11 +30,9 @@ class AdminController extends Controller
 
         return redirect()->route('admin.login.index');
     }
-    public function editIndex(Request $request): View
+    public function editIndex(Request $request)
     {
-        return view('profile.edit', [
-            'user' => $request->user(),
-        ]);
+        return view('auth.admin.profile.edit',['user'=>Auth::guard('admin')->user()]);
     }
     public function registerIndex(){
         return view('auth.admin.register');
