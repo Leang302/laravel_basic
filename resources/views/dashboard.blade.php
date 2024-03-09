@@ -20,7 +20,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($users as $user)
+                            {{-- @foreach ($users as $user)
                                 <tr>
                                     <th>{{ ++$loop->index }}</th>
                                     <td>{{ $user->name }}</td>
@@ -28,13 +28,15 @@
                                     <td>{{ $user->created_at }}</td>
                                     <td>{{ $user->updated_at }}</td>
                                 </tr>
-                            @endforeach
+                            @endforeach --}}
+                            {{ $dataTable->table() }}
 
                         </tbody>
                     </table>
-                    {{ $users->links() }}
+                    {{-- {{ $users->links() }} --}}
                 </div>
             </div>
         </div>
     </div>
+    {{ $dataTable->scripts(attributes: ['type' => 'module']) }}
 </x-app-layout>
