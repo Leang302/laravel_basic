@@ -21,6 +21,10 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/user/{id}/edit',function($id){
+    return $id;
+})->name('user.edit');
+
 Route::get('/dashboard', function (UsersDataTable $dataTable) {
     // $users = User::paginate(15);
     // $users = User::orderBy('id')->get();

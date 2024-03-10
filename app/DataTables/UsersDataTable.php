@@ -8,8 +8,6 @@ use Yajra\DataTables\EloquentDataTable;
 use Yajra\DataTables\Html\Builder as HtmlBuilder;
 use Yajra\DataTables\Html\Button;
 use Yajra\DataTables\Html\Column;
-use Yajra\DataTables\Html\Editor\Editor;
-use Yajra\DataTables\Html\Editor\Fields;
 use Yajra\DataTables\Services\DataTable;
 
 class UsersDataTable extends DataTable
@@ -22,7 +20,15 @@ class UsersDataTable extends DataTable
     public function dataTable(QueryBuilder $query): EloquentDataTable
     {
         return (new EloquentDataTable($query))
-            ->addColumn('action', 'users.action')
+            // ->addColumn('action', 'users.action')
+            ->addColumn('action',function($query){
+                // return $query;
+                return '<a href="'.route('user.edit',$query->id).'" class="btn btn-primary">Edit</a>' .
+                '<a href="" class="btn btn-danger">Delete</a>';
+            })//add content into the row
+            ->addColumn('demo',function($query){
+
+            })
             ->setRowId('id');
     }
 
@@ -62,16 +68,18 @@ class UsersDataTable extends DataTable
     public function getColumns(): array
     {
         return [
-            Column::computed('action')
-                  ->exportable(false)
-                  ->printable(false)
-                  ->width(60)
-                  ->addClass('text-center'),
+            // Column::computed('action')
+            //       ->exportable(false)
+            //       ->printable(false)
+            //       ->width(60)
+            //       ->addClass('text-center'),
             Column::make('id'),
             Column::make('name'),
             Column::make('email'),
             Column::make('created_at'),
             Column::make('updated_at'),
+            Column::make('action'),//field for button
+            Column::make('demo'),//field for button
         ];
     }
 
